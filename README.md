@@ -23,7 +23,9 @@ For this project, I set up a Windows virtual machine (VM) in Azure to act as a h
 The first step in the process, after creating a free azure account, is the create and configure our resource group, virtual network, and Windows 10 virtual machine! Everything should be in the same region. When creating the VM, it's important to give it an administrator user and password you'll remember. 
 
 **Image:**  
-![Creating The VM](images/windows10.png)
+![Creating The VM](https://github.com/alytheanalyst/NewHoneyPotLab/blob/main/resourcegroupcreation.png?raw=true)
+![Creating The VM](https://github.com/alytheanalyst/NewHoneyPotLab/blob/main/vnet.png?raw=true)
+![Creating The VM](https://github.com/user-attachments/assets/09e48af7-c773-4056-8d49-d01ea907c53f)
 
 More importantly, we need to make sure our Windows machine is suceptible to attacks and basically free game to any hackers. Here's me configuring the security group to allow anything into the system.
 
@@ -44,22 +46,19 @@ The next step is to reconfigure our network security group to make it susceptibl
 
 We're also going to log into the virtual machine itself to disable the firewall. Remote desktop into it on your own pc with the login credentials created earlier. 
 
+![Step 2 Image](https://github.com/alytheanalyst/NewHoneyPotLab/blob/main/loggingin.png?raw=true)
+
 From there we can launch the windows defender firewall program, head to windows defender firewall properties, and turn off the firewall state in each tab. 
 
+![Step 2 Image](https://github.com/alytheanalyst/NewHoneyPotLab/blob/main/disabling.png?raw=true)
+
 To test if everything is working properly, ping the ip address of the virtual machine from the local pc. If there is a response, we know the virtual machine is open to the internet. 
-![Step 2 Image](images/enablevmlogs.png)  
+![Step 2 Image](https://github.com/alytheanalyst/NewHoneyPotLab/blob/main/pingfromhost.png?raw=true)  
 
 Looking at event viewer, we can see my failed (event ID 4625) and successful login attempts. These are our raw logs that we're going to foward to azure to be queried and collected in Microsoft Sentinel.
 
-![Step 2 Image](images/enablevmlogs2.png)
+![Step 2 Image](https://github.com/alytheanalyst/NewHoneyPotLab/blob/main/fil;tering.png?raw=true)
 
-Next, we want to actually connect our log analytics workspace to our honeypot.
-
-![Step 2 Image](images/connecttovm.png)
-
-Finally, we are going to connect Microsoft Sentinnel to our log analytics workspace. This is the SIEM we are going to use to visualize the attack data.
-
-![Step 2 Image](images/connectsentinel.png)
 
 ---
 
@@ -70,15 +69,19 @@ Now we're going to create a log analytics workspace to store, retain, and query 
 After that's done, Microsoft Sentinel is next. Add it to the log analytics workspace.
 
 **Image:**  
-![Step 3 Image](path/to/image3.png)  
+![Step 3 Image](https://github.com/alytheanalyst/NewHoneyPotLab/blob/main/loganalytics.png?raw=true)  
 
 ---
 
 ### Step 4: [Azure Monitoring Agent]  
 **Description:**  
 Next we configure the azure monitorying agent security event connector. It creates a connection between our virtual machine and log analytics workspace so we can receive the logs in sentinnel. It is located in the content hub of Microsoft Sentinel. Install windows security events, click on Windows Security Events via AMA and create a data collection rule.
+
 **Image:**  
-![Step 4 Image](path/to/image4.png)  
+
+![Step 4 Image](https://github.com/alytheanalyst/NewHoneyPotLab/blob/main/addingwindowsevent.png?raw=true)  
+
+![Step 4 Image](https://github.com/alytheanalyst/NewHoneyPotLab/blob/main/isitdone.png?raw=true)  
 
 If we go to log analytics workspace, we will begin to see logs being ingested into it. Query for logs within the LAW:
 
@@ -86,6 +89,10 @@ Observe some of your VM logs:
 
 SecurityEvent
 | where EventId == 4625
+
+![Step 4 Image](https://github.com/alytheanalyst/NewHoneyPotLab/blob/main/checkingforlogs.png?raw=true)  
+![Step 4 Image](https://github.com/alytheanalyst/NewHoneyPotLab/blob/main/checkingforlogs.png?raw=true)  
+
 
 ---
 
@@ -102,9 +109,13 @@ In real life, this location data would come from a live source or it would be up
 
 
 **Image:**  
-![Step 5 Image](path/to/image5.png)  
+![Step 5 Image](https://github.com/alytheanalyst/NewHoneyPotLab/blob/main/Screenshot%202025-02-19%20224526.png?raw=true)  
 
 After uploading it and quering it in the log analytics workspace, we can now see geographic data like country name, city name, etc.
+
+![Step 5.1 Image](https://github.com/alytheanalyst/NewHoneyPotLab/blob/main/Screenshot%202025-02-19%20232024.png?raw=true) 
+
+![Step 5.1 Image](https://github.com/alytheanalyst/NewHoneyPotLab/blob/main/Screenshot%202025-02-19%20232244.png?raw=true) 
 
 ---
 
@@ -144,29 +155,14 @@ Within Sentinel, create a new Workbook. Delete the prepopulated elements and add
 	}
 	},
 	"name": "query - 0"
+![Step 5.1 Image](https://github.com/alytheanalyst/NewHoneyPotLab/blob/main/Screenshot%202025-02-19%20233134.png?raw=true). 
 
 
 How freakin' cool is that? Now we can see all the attacks on a map and visualize where in the world they are coming from!
 **Image:**  
-![Step 6 Image](path/to/image6.png)  
+![Step 6 Image](https://github.com/alytheanalyst/NewHoneyPotLab/blob/main/Screenshot%202025-02-20%20083900.png?raw=true)  
 
----
 
-### Step 7: [Step Title]  
-**Description:**  
-Explain the focus of this step and any specific tools, methods, or configurations used.  
-
-**Image:**  
-![Step 7 Image](path/to/image7.png)  
-
----
-
-### Step 8: [Step Title]  
-**Description:**  
-Highlight the objectives of this step and describe how they were met.  
-
-**Image:**  
-![Step 8 Image](path/to/image8.png)  
 
 ---
 
