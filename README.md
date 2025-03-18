@@ -10,7 +10,11 @@ In this project, I deployed a Windows honeypot in Azure, collected security logs
   - <b>Windows Event Viewer</b>
 
   ## Languages Used
-  - <b>Kusto Query Language(KQL)</b> 
+  - <b>Kusto Query Language(KQL)</b>
+ 
+
+![Overview](https://github.com/alytheanalyst/NewHoneyPotLab/blob/main/Screenshot%202025-02-20%20103626.png?raw=true)
+
 
 ---
 
@@ -25,22 +29,15 @@ The first step in the process, after creating a free azure account, is the creat
 ![Creating The VM](https://github.com/alytheanalyst/NewHoneyPotLab/blob/main/vnet.png?raw=true)
 ![Creating The VM](https://github.com/user-attachments/assets/09e48af7-c773-4056-8d49-d01ea907c53f)
 
-More importantly, we need to make sure our Windows machine is suceptible to attacks and basically free game to any hackers. Here's me configuring the security group to allow anything into the system.
-
-![Creating The VM](images/networkgroup.png)
-
-And here is an image of all the options I selected before creating the VM.
-
-![Creating The VM](images/pressingcreate.png)
-
 Now we should be able to see the resource group, the virtual network within that, and the virtual machine within that. We also see the public IP address, the network interface, disk, and the network security group (basically like a cloud firewall).
+
 ---
 
 ### Step 2:  Removing all Defenses  
 **Description:**  
 The next step is to reconfigure our network security group to make it susceptible to attacks and basically free game to any hackers. Here's me configuring the security group to allow anything into the system by adding an inbound security rule.
 **Image:**  
-![Step 2 Image](images/loganalytics.png)  
+![Step 2 Image](https://github.com/alytheanalyst/NewHoneyPotLab/blob/main/inbound.png?raw=true)
 
 We're also going to log into the virtual machine itself to disable the firewall. Remote desktop into it on your own pc with the login credentials created earlier. 
 
