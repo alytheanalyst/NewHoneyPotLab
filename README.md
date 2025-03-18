@@ -1,5 +1,3 @@
-# NewHoneyPotLab
-an updated version of the old honeypot lab
 
 # Project Title: Mapping Live Cyber Attacks on Microsoft Sentinel  
 In this project, I deployed a Windows honeypot in Azure, collected security logs, and visualized real-time cyber attacks using Microsoft Sentinel. I started by setting up an Azure Virtual Machine (VM) with firewall rules that allowed all inbound traffic, attracting unauthorized login attempts. These failed login attempts were logged in Windows Event Viewer and forwarded to Log Analytics Workspace (LAW) using Microsoft Sentinel’s data connectors. To enhance threat intelligence, I enriched the logs with geolocation data by importing an IP-to-location watchlist, allowing me to correlate attacker IP addresses with physical locations. Finally, I created a custom attack map in Sentinel’s Workbook, providing a real-time, interactive view of global attack origins. This project allowed me to develop essential skills in cloud security, SIEM configuration, log analysis, KQL querying, and cybersecurity monitoring.
